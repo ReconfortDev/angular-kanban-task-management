@@ -1,0 +1,15 @@
+<main class="w-full flex">
+  <div class="hidden md:block md:w-[30%] lg:w-[22%] xl:w-[18%] fixed">
+    <app-sidebar (isSideBarActive)="handleSidebarToggle($event)"></app-sidebar>
+  </div>
+  <div
+    [ngClass]="
+      isSidebarVisible
+        ? 'duration-100 w-full h-full flex flex-col md:w-[70%] lg:w-[78%] xl:w-[82%] md:ml-[30%] lg:ml-[22%] xl:ml-[18%]'
+        : 'w-full h-full flex flex-col'
+    "
+  >
+    <app-header></app-header>
+    <app-body-wrapper></app-body-wrapper>
+  </div>
+</main>

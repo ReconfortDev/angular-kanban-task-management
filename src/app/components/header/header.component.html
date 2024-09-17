@@ -1,0 +1,44 @@
+<header
+  class="w-full bg-white dark:bg-darkGray text-black dark:text-lightGray p-3 border-b border-lightLines dark:border-darkLine flex justify-between items-center"
+>
+  <button
+    class="w-7/12 flex justify-start items-center gap-4 p-2 duration-75 active:scale-90 md:active:scale-100"
+  >
+    <img src="assets/logo-mobile.svg" alt="Kanban" class="h-7 block md:hidden" />
+    <h2 class="text-base md:text-2xl font-bold">Platform Launch</h2>
+    <span class="material-symbols-outlined -ml-4 mt-1 block md:hidden"> keyboard_arrow_down </span>
+  </button>
+  <div class="w-5/12 flex justify-end items-center gap-1">
+    <button
+      class="bg-lightPurple text-white border-2 border-lightPurple active:bg-white dark:active:bg-darkBg active:text-lightPurple px-3 lg:px-4 md:px-6 py-3 lg:py-4 rounded-full flex items-center gap-2 duration-75 active:scale-75"
+    >
+      <span class="material-symbols-outlined"> add </span>
+      <p class="hidden md:block capitalize text-xs font-bold">add new Task</p>
+    </button>
+    <button
+      (click)="toggleActionMenu()"
+      class="text-mediumGray hover:bg-mediumGray hover:text-white border-2 border-lightGray border-x-purple dark:border-x-mediumGray p-3 lg:p-4 rounded-full flex items-center gap-2 duration-75 active:scale-75"
+    >
+      <span class="material-symbols-outlined"> more_vert </span>
+    </button>
+    <ul
+      [ngClass]="
+        isActionOpened
+          ? 'duration-100 translate-x-0 opacity-100'
+          : 'opacity-0 duration-100 translate-x-64'
+      "
+      class="p-2 flex flex-col gap-2 absolute bg-white dark:bg-darkGray mt-[20vh] rounded-xl shadow dark:shadow-mediumGray duration-100"
+    >
+      <li
+        class="text-sm font-semibold px-4 pr-6 py-3 hover:bg-lightGray hover:dark:bg-black duration-100 rounded-lg cursor-pointer"
+      >
+        Edit board
+      </li>
+      <li
+        class="text-sm text-red font-semibold px-4 pr-6 py-3 hover:bg-lightGray hover:dark:bg-black duration-100 rounded-lg cursor-pointer"
+      >
+        Delete board
+      </li>
+    </ul>
+  </div>
+</header>
