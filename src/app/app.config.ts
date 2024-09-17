@@ -10,14 +10,16 @@ import { provideEffects } from '@ngrx/effects';
 import { themeReducer } from './state/theme/theme.reducer';
 import { boardReducer } from './state/boards/board.reducer';
 import { BoardEffects } from './state/boards/board.effects';
+import { ColumnEffects } from './state/columns/colum.effect';
+import { columnReducer } from './state/columns/column.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(),
-    provideStore({ theme: themeReducer, board: boardReducer }),
-    provideEffects([BoardEffects]),
+    provideStore({ theme: themeReducer, board: boardReducer, column: columnReducer }),
+    provideEffects([BoardEffects, ColumnEffects]),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),

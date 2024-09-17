@@ -1,7 +1,8 @@
 <section
   class="bg-lightGray dark:bg-darkBg w-full min-h-[92vh] flex flex-col gap-4 items-start justify-start"
 >
-  <!-- <div class="w-full p-4 h-[90vh] flex flex-col gap-4 items-center justify-center">
+<ng-container *ngIf="(columns$ | async)?.length === 0; else showColumns">
+  <div class="w-full p-4 h-[90vh] flex flex-col gap-4 items-center justify-center">
   <h2 class="text-mediumGray font-bold text-center w-[80%]">
     This board is empty. Create a new column to get started.
   </h2>
@@ -11,14 +12,17 @@
     <span class="material-symbols-outlined"> add </span>
     add new Task
   </button>
-</div> -->
+</div>
+</ng-container>
 
+
+<ng-template #showColumns>
   <div
     class="w-full p-4 flex justify-start items-start gap-4 md:gap-6 overflow-x-auto overflow-y-hidden"
   >
-    <app-column></app-column>
-    <app-column></app-column>
-    <app-column></app-column>
+  <ng-container *ngFor="let column of columns$ | async">
+    <app-column [column]="column"></app-column>
+  </ng-container>
     <div
       class="min-w-[380px] lg:min-w-[420px] h-[84vh] bg-white dark:bg-darkGray group text-mediumGray shadow-lg rounded-xl flex gap-1 justify-center items-center mt-10 duration-100 cursor-pointer"
     >
@@ -26,4 +30,5 @@
       <h1 class="font-semibold text-xl duration-100">New Column</h1>
     </div>
   </div>
+</ng-template>
 </section>

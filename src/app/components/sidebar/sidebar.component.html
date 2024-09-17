@@ -29,7 +29,7 @@
           (click)="setActiveBoard(board)"
           [ngClass]="{
             'bg-purple text-white': board === activeBoard,
-            'text-mediumGray hover:bg-purple hover:text-white dark:hover:bg-white dark:hover:text-purple':
+            'text-mediumGray hover:bg-purple/15 hover:dark:bg-purple hover:dark:text-white dark:hover:bg-white dark:hover:text-purple':
               board !== activeBoard,
           }"
           class="w-full text-[16px] duration-200 cursor-pointer py-2 pl-4 lg:pl-6 rounded-r-full flex items-center gap-2 xl:gap-4 font-medium group"
@@ -42,6 +42,7 @@
           <a href="#" class="scale-95">{{ board.name }}</a>
         </li>
         <li
+        (click)="toggleDialogue()"
           class="w-full text-purple text-[16px] hover:bg-purple hover:text-white duration-200 cursor-pointer py-4 pl-4 lg:pl-6 rounded-r-full flex items-center gap-2 xl:gap-4 font-medium"
         >
           <span class="material-symbols-outlined"> space_dashboard </span>
@@ -99,3 +100,5 @@
     visibility
   </span>
 </button>
+
+<app-dialogue></app-dialogue>

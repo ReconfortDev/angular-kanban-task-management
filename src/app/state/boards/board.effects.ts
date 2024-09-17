@@ -10,8 +10,6 @@ export class BoardEffects {
   private actions$ = inject(Actions);
   private boardService = inject(BoardService);
 
-  // constructor(private actions$: Actions, private boardService: BoardService) {}
-
   loadBoards$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadBoards),
