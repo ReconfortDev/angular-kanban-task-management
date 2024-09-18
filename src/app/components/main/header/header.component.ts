@@ -25,4 +25,8 @@ export class HeaderComponent {
   openCreateBoard() {
     this.dialogueService.openDialogue('createTask');
   }
+
+  openDeleteBoard() {
+    this.dialogueService.openDialogue('deleteBoard');
+  }
 }

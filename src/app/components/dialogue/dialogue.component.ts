@@ -4,11 +4,12 @@ import { DialogueService } from '../../services/dialogue/dialogue.service';
 import { CreateBoardComponent } from '../operations/board/create-board/create-board.component';
 import { TaskDetailsComponent } from '../operations/task/task-details/task-details.component';
 import { CreateTaskComponent } from "../operations/task/create-task/create-task.component";
+import { DeleteBoardComponent } from "../operations/board/delete-board/delete-board.component";
 
 @Component({
   selector: 'app-dialogue',
   standalone: true,
-  imports: [NgClass, NgComponentOutlet, CommonModule, CreateBoardComponent, TaskDetailsComponent, CreateTaskComponent],
+  imports: [NgClass, NgComponentOutlet, CommonModule, CreateBoardComponent, TaskDetailsComponent, CreateTaskComponent, DeleteBoardComponent],
   templateUrl: './dialogue.component.html',
   styleUrl: './dialogue.component.css',
 })
