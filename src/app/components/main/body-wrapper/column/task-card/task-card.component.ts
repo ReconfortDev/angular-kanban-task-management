@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Task } from '../../models';
-import { DialogueService } from '../../services/dialogue/dialogue.service';
+import { Task } from '../../../../../models';
+import { DialogueService } from '../../../../../services/dialogue/dialogue.service';
 
 @Component({
   selector: 'app-task-card',

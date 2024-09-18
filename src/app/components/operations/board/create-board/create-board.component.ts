@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { BoardState } from '../../state/boards/board.state';
-import { addColumn, addBoard } from '../../state/boards/board.actions';
-import { Board, Column } from '../../models';
+import { BoardState } from '../../../../state/boards/board.state';
+import { addBoard } from '../../../../state/boards/board.actions';
+import { Board } from '../../../../models';
 import { Observable, take } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { DialogueService } from '../../services/dialogue/dialogue.service';
+import { DialogueService } from '../../../../services/dialogue/dialogue.service';
 
 @Component({
   selector: 'app-create-board',

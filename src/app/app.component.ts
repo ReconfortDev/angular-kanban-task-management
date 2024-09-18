@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { HeaderComponent } from './components/header/header.component';
-import { BodyWrapperComponent } from './components/body-wrapper/body-wrapper.component';
+import { SidebarComponent } from './components/main/sidebar/sidebar.component';
+import { HeaderComponent } from './components/main/header/header.component';
+import { BodyWrapperComponent } from './components/main/body-wrapper/body-wrapper.component';
 import { CommonModule } from '@angular/common';
 
 @Component({

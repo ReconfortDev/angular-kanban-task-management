@@ -1,13 +1,14 @@
 import { CommonModule, NgClass, NgComponentOutlet } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { DialogueService } from '../../services/dialogue/dialogue.service';
-import { CreateBoardComponent } from '../create-board/create-board.component';
-import { TaskDetailsComponent } from '../task-details/task-details.component';
+import { CreateBoardComponent } from '../operations/board/create-board/create-board.component';
+import { TaskDetailsComponent } from '../operations/task/task-details/task-details.component';
+import { CreateTaskComponent } from "../operations/task/create-task/create-task.component";
 
 @Component({
   selector: 'app-dialogue',
   standalone: true,
-  imports: [NgClass, NgComponentOutlet, CommonModule, CreateBoardComponent, TaskDetailsComponent],
+  imports: [NgClass, NgComponentOutlet, CommonModule, CreateBoardComponent, TaskDetailsComponent, CreateTaskComponent],
   templateUrl: './dialogue.component.html',
   styleUrl: './dialogue.component.css',
 })

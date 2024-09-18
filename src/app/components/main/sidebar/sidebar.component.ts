@@ -1,15 +1,15 @@
 import { AsyncPipe, CommonModule, NgClass } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ThemeState } from '../../state/theme/theme.reducer';
-import { toggleTheme } from '../../state/theme/theme.actions';
+import { ThemeState } from '../../../state/theme/theme.reducer';
+import { toggleTheme } from '../../../state/theme/theme.actions';
 import { map, Observable } from 'rxjs';
-import { Board } from '../../models';
-import { BoardState } from '../../state/boards/board.state';
-import { loadBoards } from '../../state/boards/board.actions';
-import { DialogueService } from '../../services/dialogue/dialogue.service';
-import { loadColumns } from '../../state/columns/column.action';
-import { DialogueComponent } from "../dialogue/dialogue.component";
+import { Board } from '../../../models';
+import { BoardState } from '../../../state/boards/board.state';
+import { loadBoards } from '../../../state/boards/board.actions';
+import { DialogueService } from '../../../services/dialogue/dialogue.service';
+import { loadColumns } from '../../../state/columns/column.action';
+import { DialogueComponent } from '../../dialogue/dialogue.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -29,7 +29,10 @@ export class SidebarComponent implements OnInit {
 
   @Output() isSideBarActive = new EventEmitter<boolean>();
 
-  constructor(private store: Store<{ theme: ThemeState; board: BoardState }>, public dialogueService: DialogueService) {}
+  constructor(
+    private store: Store<{ theme: ThemeState; board: BoardState }>,
+    public dialogueService: DialogueService,
+  ) {}
 
   ngOnInit() {
     this.store.select('theme').subscribe((state) => {
@@ -40,23 +43,20 @@ export class SidebarComponent implements OnInit {
     this.boards$ = this.store.select((state) => state.board.boards);
     this.boards$.subscribe((boards) => {
       if (boards.length > 0) {
-      this.activeBoard = boards[this.activeBoardIndex] || null;
-      this.store.dispatch(loadColumns({ boardIndex: this.activeBoardIndex }));
-      this.totalBoards = boards.length;
+        this.activeBoard = boards[this.activeBoardIndex] || null;
+        this.store.dispatch(loadColumns({ boardIndex: this.activeBoardIndex }));
+        this.totalBoards = boards.length;
       } else {
-      this.activeBoard = null;
+        this.activeBoard = null;
       }
     });
     this.store.dispatch(loadBoards());
   }
 
   setActiveBoard(board: Board) {
-    this.boards$.pipe(
-      map(boards => boards.findIndex(b => b === board))
-    ).subscribe(index => {
+    this.boards$.pipe(map((boards) => boards.findIndex((b) => b === board))).subscribe((index) => {
       this.activeBoardIndex = index;
       this.activeBoard = board;
-      console.log('Selected id: ', this.activeBoardIndex)
       this.store.dispatch(loadColumns({ boardIndex: this.activeBoardIndex }));
     });
   }
@@ -69,8 +69,7 @@ export class SidebarComponent implements OnInit {
     this.store.dispatch(toggleTheme());
   }
 
-
-  openCreateBoard(){
-    this.dialogueService.openDialogue('createBoard')
+  openCreateBoard() {
+    this.dialogueService.openDialogue('createBoard');
   }
 }

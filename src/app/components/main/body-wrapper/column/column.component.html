@@ -15,6 +15,17 @@
   </div>
 
   <ng-template #noTasksTemplate>
-    <p>No tasks available for this column.</p>
+    <div
+      class="flex flex-col justify-start items-start p-6 gap-4 w-full bg-white dark:bg-darkGray rounded-xl duration-100 shadow-lg"
+    >
+      <h2 class="font-bold text-lightRed dark:text-white duration-100">
+        No tasks available for this column.
+      </h2>
+      <p
+        class="font-semibold text-lightGray bg-purple py-3 px-6 text-center rounded-xl flex justify-center items-center"
+      >
+        + Add Task
+      </p>
+    </div>
   </ng-template>
 </div>

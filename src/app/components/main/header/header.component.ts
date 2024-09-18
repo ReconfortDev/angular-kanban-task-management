@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
-import { DialogueService } from '../../services/dialogue/dialogue.service';
+import { DialogueService } from '../../../services/dialogue/dialogue.service';
 
 @Component({
   selector: 'app-header',
@@ -22,5 +22,7 @@ export class HeaderComponent {
     this.isActionOpened = !this.isActionOpened;
   }
 
-  
+  openCreateBoard() {
+    this.dialogueService.openDialogue('createTask');
+  }
 }

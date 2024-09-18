@@ -15,7 +15,6 @@ export class ColumnEffects {
       ofType(loadColumns),
       mergeMap(({ boardIndex }) =>
         this.boardService.getColumnsByBoardIndex(boardIndex).pipe(
-          tap((columns) => console.log('Fetched Columns:', columns)),
           map((columns) => loadColumnsSuccess({ columns: columns || [] })),
           catchError((error) => of(loadColumnsFailure({ error }))),
         ),

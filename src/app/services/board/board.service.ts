@@ -11,7 +11,6 @@ export class BoardService {
   constructor() {}
 
   getBoards(): Observable<Board[]> {
-    console.log('jsonData', this.updatedBoards);
     return of(this.updatedBoards);
   }
 
