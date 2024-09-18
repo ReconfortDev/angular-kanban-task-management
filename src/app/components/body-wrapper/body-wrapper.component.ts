@@ -6,11 +6,12 @@ import { ColumnState } from '../../state/columns/colum.state';
 import { ColumnComponent } from '../column/column.component';
 import { loadColumns } from '../../state/columns/column.action';
 import { CommonModule } from '@angular/common';
+import { DialogueComponent } from "../dialogue/dialogue.component";
 
 @Component({
   selector: 'app-body-wrapper',
   standalone: true,
-  imports: [CommonModule ,ColumnComponent],
+  imports: [CommonModule, ColumnComponent, DialogueComponent],
   templateUrl: './body-wrapper.component.html',
   styleUrl: './body-wrapper.component.css',
 })

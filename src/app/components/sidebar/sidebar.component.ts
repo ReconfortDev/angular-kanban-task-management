@@ -7,9 +7,9 @@ import { map, Observable } from 'rxjs';
 import { Board } from '../../models';
 import { BoardState } from '../../state/boards/board.state';
 import { loadBoards } from '../../state/boards/board.actions';
-import { DialogueComponent } from '../dialogue/dialogue.component';
 import { DialogueService } from '../../services/dialogue/dialogue.service';
 import { loadColumns } from '../../state/columns/column.action';
+import { DialogueComponent } from "../dialogue/dialogue.component";
 
 @Component({
   selector: 'app-sidebar',
@@ -69,7 +69,8 @@ export class SidebarComponent implements OnInit {
     this.store.dispatch(toggleTheme());
   }
 
-  toggleDialogue() {
-    this.dialogueService.toggleDialogue();
+
+  openCreateBoard(){
+    this.dialogueService.openDialogue('createBoard')
   }
 }
