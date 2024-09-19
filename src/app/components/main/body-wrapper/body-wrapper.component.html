@@ -1,3 +1,4 @@
+<script src="../sidebar/sidebar.component.ts"></script>
 <section
   class="bg-lightGray dark:bg-darkBg w-full min-h-[92vh] flex flex-col gap-4 items-start justify-start"
 >
@@ -10,20 +11,18 @@
         class="bg-purple border-2 border-purple active:bg-white dark:active:bg-darkGray active:text-purple text-white px-6 py-4 rounded-full flex items-center gap-2 font-semibold duration-75 active:scale-75 capitalize"
       >
         <span class="material-symbols-outlined"> add </span>
-        add new Task
+        add new Column
       </button>
     </div>
   </ng-container>
 
   <ng-template #showColumns>
-    <div
-      class="w-full p-4 flex justify-start items-start gap-4 md:gap-6 overflow-x-auto overflow-y-hidden"
-    >
+    <div class="w-full p-4 flex justify-start gap-4 md:gap-6 overflow-x-auto overflow-y-hidden">
       <ng-container *ngFor="let column of columns$ | async">
         <app-column [column]="column"></app-column>
       </ng-container>
       <div
-        class="min-w-[380px] lg:min-w-[420px] h-[84vh] bg-white dark:bg-darkGray group text-mediumGray shadow-lg rounded-xl flex gap-1 justify-center items-center mt-10 duration-100 cursor-pointer"
+        class="min-w-[380px] lg:min-w-[420px] bg-white dark:bg-darkGray group text-mediumGray shadow-lg rounded-xl flex gap-1 justify-center items-center mt-10 duration-100 cursor-pointer"
       >
         <span class="material-symbols-outlined group-hover:rotate-45 duration-100"> add </span>
         <h1 class="font-semibold text-xl duration-100">New Column</h1>

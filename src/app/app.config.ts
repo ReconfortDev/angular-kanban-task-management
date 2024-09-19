@@ -12,14 +12,16 @@ import { boardReducer } from './state/boards/board.reducer';
 import { BoardEffects } from './state/boards/board.effects';
 import { ColumnEffects } from './state/columns/colum.effect';
 import { columnReducer } from './state/columns/column.reducer';
+import { taskReducer } from './state/task/task.reducer';
+import { TaskEffects } from './state/task/task.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(),
-    provideStore({ theme: themeReducer, board: boardReducer, column: columnReducer }),
-    provideEffects([BoardEffects, ColumnEffects]),
+    provideStore({ theme: themeReducer, board: boardReducer, column: columnReducer, task: taskReducer }),
+    provideEffects([BoardEffects, ColumnEffects, TaskEffects]),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),

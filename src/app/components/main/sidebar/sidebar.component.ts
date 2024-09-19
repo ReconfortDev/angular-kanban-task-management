@@ -10,6 +10,7 @@ import { loadBoards } from '../../../state/boards/board.actions';
 import { DialogueService } from '../../../services/dialogue/dialogue.service';
 import { loadColumns } from '../../../state/columns/column.action';
 import { DialogueComponent } from '../../dialogue/dialogue.component';
+import { BoardService } from '../../../services/board/board.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,18 +21,18 @@ import { DialogueComponent } from '../../dialogue/dialogue.component';
 })
 export class SidebarComponent implements OnInit {
   isSideBarHidden = false;
-  isDarkMode = false;
   theme!: 'light' | 'dark';
   boards$!: Observable<Board[]>;
-  totalBoards: number = 0;
-  activeBoardIndex: number = 0;
+  totalBoards = 0;
+  activeBoardIndex = 0;
   activeBoard: Board | null = null;
 
   @Output() isSideBarActive = new EventEmitter<boolean>();
 
   constructor(
     private store: Store<{ theme: ThemeState; board: BoardState }>,
-    public dialogueService: DialogueService,
+    private dialogueService: DialogueService,
+    private boardService: BoardService
   ) {}
 
   ngOnInit() {
@@ -56,6 +57,8 @@ export class SidebarComponent implements OnInit {
   setActiveBoard(board: Board) {
     this.boards$.pipe(map((boards) => boards.findIndex((b) => b === board))).subscribe((index) => {
       this.activeBoardIndex = index;
+      console.log('Setting activeBoardIndex in SidebarComponent to:', index);
+      this.boardService.activeBoardIndex = this.activeBoardIndex;
       this.activeBoard = board;
       this.store.dispatch(loadColumns({ boardIndex: this.activeBoardIndex }));
     });

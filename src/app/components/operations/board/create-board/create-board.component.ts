@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { BoardState } from '../../../../state/boards/board.state';
 import { addBoard } from '../../../../state/boards/board.actions';
 import { Board } from '../../../../models';
-import { Observable, take } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { DialogueService } from '../../../../services/dialogue/dialogue.service';
 

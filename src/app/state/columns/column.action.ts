@@ -16,17 +16,3 @@ export const loadColumnsFailure = createAction(
   props<{ error: any }>()
 );
 
-export const addColumn = createAction(
-  '[Columns] Add Column',
-  props<{ column: Column }>()
-);
-
-export const updateColumn = createAction(
-  '[Columns] Update Column',
-  props<{ column: Column }>()
-);
-
-export const deleteColumn = createAction(
-  '[Columns] Delete Column',
-  props<{ columnId: string }>()
-);

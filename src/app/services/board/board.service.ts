@@ -7,8 +7,27 @@ import { jsonData } from '../../data/data';
   providedIn: 'root',
 })
 export class BoardService {
+  // activeBoardIndex!:number;
+  private  _activeBoardIndex = 0;
   updatedBoards: Board[] = [...jsonData.boards];
-  constructor() {}
+
+  get activeBoardIndex(): number {
+    return this._activeBoardIndex;
+  }
+
+  // set activeBoardIndex(index: number) {
+  //   console.log('Setting activeBoardIndex to:', index);
+  //   this._activeBoardIndex = index;
+  // }
+
+  set activeBoardIndex(index: number) {
+    if (index >= 0 && index < this.updatedBoards.length) {
+      console.log('Setting activeBoardIndex to:', index);
+      this._activeBoardIndex = index;
+    } else {
+      console.warn('Index out of bounds:', index);
+    }
+  }
 
   getBoards(): Observable<Board[]> {
     return of(this.updatedBoards);

@@ -1,53 +1,55 @@
-<form class="w-full flex flex-col gap-4 py-2">
-  <h2 class="font-bold text-xl text-black dark:text-lightGray">Add New task</h2>
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="w-full flex flex-col gap-4 py-2">
+  <h2 class="font-bold text-xl text-black dark:text-lightGray">Add New Task</h2>
 
   <div class="mt-4 flex flex-col gap-3 group">
-    <label for="board-name" class="font-semibold text-sm text-mediumGray">Title</label>
+    <label for="title" class="font-semibold text-sm text-mediumGray">Title</label>
     <input
       type="text"
-      id="board-name"
-      formControlName="name"
+      id="title"
+      formControlName="title"
       placeholder="e.g. Take coffee break"
       class="w-full px-4 p-3 rounded-lg border-2 dark:bg-darkGray border-gray-300 dark:border-lightGray/30 font-medium dark:text-lightGray group-hover:border-mediumGray"
     />
+    <div class="-mt-3 font-medium" *ngIf="taskForm.get('title')?.invalid && (taskForm.get('title')?.dirty || taskForm.get('title')?.touched)">
+      <small class="text-red">Title is required and must be at least 3 characters long.</small>
+    </div>
   </div>
 
   <div class="mt-4 flex flex-col gap-3 group">
-    <label for="board-name" class="font-semibold text-sm text-mediumGray">Description</label>
+    <label for="description" class="font-semibold text-sm text-mediumGray">Description</label>
     <textarea
-      type="text"
-      id="board-name"
-      formControlName="name"
-      [value]="null"
+      id="description"
+      formControlName="description"
       placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."
       rows="6"
       class="w-full px-4 p-3 rounded-lg border-2 dark:bg-darkGray border-gray-300 dark:border-lightGray/30 font-medium dark:text-lightGray group-hover:border-mediumGray"
     ></textarea>
+    <div class="-mt-3 font-medium" *ngIf="taskForm.get('description')?.invalid && (taskForm.get('description')?.dirty || taskForm.get('description')?.touched)">
+      <small class="text-red">Description is required and must be at least 5 characters long.</small>
+    </div>
   </div>
 
   <div class="mt-4 flex flex-col gap-3">
     <label class="font-semibold text-sm text-mediumGray">Subtasks</label>
-
-    <div formArrayName="columns" class="flex flex-col gap-3">
-      <div
-        class="flex gap-2 items-center border-2 border-gray-300 dark:border-lightGray/30 p-1 rounded-lg group hover:border-mediumGray"
-      >
+    <div formArrayName="subtasks" class="flex flex-col gap-3">
+      <div *ngFor="let subtask of subtasks.controls; let i = index" class="flex gap-2 items-center border-2 border-gray-300 dark:border-lightGray/30 p-1 rounded-lg group hover:border-mediumGray">
         <input
           type="text"
-          formControlName="name"
+          [formControlName]="i"
           placeholder="e.g. Web Design"
           class="w-full px-4 p-3 dark:bg-darkGray rounded-lg font-medium dark:text-lightGray outline-none active:outline-none"
         />
         <span
           class="material-symbols-outlined duration-150 text-mediumGray dark:text-lightGray active:bg-purple active:text-white p-3 rounded-md hover:rotate-90 cursor-pointer group-hover:bg-lightPurple/20"
+          (click)="removeSubtask(i)"
         >
           close
         </span>
       </div>
     </div>
-
     <button
       type="button"
+      (click)="addSubtask()"
       class="w-full py-4 items-center bg-lightPurple/20 font-medium text-purple rounded-full"
     >
       + Add New Subtask
@@ -55,24 +57,24 @@
   </div>
 
   <div class="mt-6 flex flex-col gap-3 group">
-    <label for="board-name" class="font-semibold text-sm text-mediumGray">Status</label>
+    <label for="status" class="font-semibold text-sm text-mediumGray">Status</label>
     <select
-      type="text"
-      id="board-name"
-      formControlName="name"
-      placeholder="e.g. Take coffee break"
+      id="status"
+      formControlName="status"
       class="w-full px-4 p-3 rounded-lg border-2 dark:bg-darkGray border-gray-300 dark:border-lightGray/30 font-medium dark:text-lightGray group-hover:border-mediumGray"
     >
-      <option>Test 0</option>
-      <option>Test 1</option>
-      <option>Test 2</option>
-      <option>Test 3</option>
+      <option value="">Select Status</option>
+      <option *ngFor="let column of (columns$ | async); let i = index" [value]="i">{{ column.name }}</option>
     </select>
+    <div class="-mt-3 font-medium" *ngIf="taskForm.get('status')?.invalid && (taskForm.get('status')?.dirty || taskForm.get('status')?.touched)">
+      <small class="text-red">Status is required.</small>
+    </div>
   </div>
 
   <button
     type="submit"
     class="w-full py-4 items-center bg-purple font-medium text-lightGray rounded-full"
+    [disabled]="taskForm.invalid"
   >
     Create Task
   </button>
