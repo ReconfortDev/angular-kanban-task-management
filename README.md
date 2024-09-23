@@ -1,27 +1,49 @@
-# KanbanTaskManagament
+# Week 4.0 Lab Activity: Kanban Task Management Web App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.4.
+## Learning Objectives
+- **Angular Mastery:** Solidify skills in building complex Angular applications, including component structuring, data binding, and routing.
+- **NgRx Expertise:** Gain proficiency in using NgRx for state management, including defining actions, reducers, effects, and selectors.
+- **RxJS Fluency:** Utilize RxJS operators to handle asynchronous operations, manage data streams, and streamline application logic.
 
-## Development server
+## Introduction
+This project challenges you to develop a feature-rich task management application using Angular as the framework, along with NgRx for state management and RxJS for handling asynchronous operations and data streams. Your goal is to replicate the provided design as closely as possible while ensuring a smooth and intuitive user experience.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+You will work with a local `data.json` file to populate initial content, and you're encouraged to explore building a full-stack application if you'd like to take on an additional challenge.
 
-## Code scaffolding
+## Core Features & Evaluation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### 1. Responsive Layout
+- **Description:** The app layout adapts seamlessly to various screen sizes, ensuring optimal viewing on desktops, tablets, and mobile devices.
+- **Grading:**
+  - Excellent (20 points): Flawless responsiveness across all devices.
+  - Good (15 points): Minor layout adjustments needed on some devices.
+  - Fair (10 points): Functional on some sizes, but improvements are needed.
+  - Poor (5 points): Not responsive, causing display issues.
 
-## Build
+## Live Demo
+You can view the live application [here](kanban-task-management-app.netlify.app).
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Installation Instructions
+1. Clone the repository:
+   ```bash
+   git clone <git@github.com:ReconfortDev/angular-kanban-task-management.git>
+   cd angular-kanban-task-management
+   ```
+2. Install the dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the application:
+   ```bash
+   ng serve
+   ```
+4. Open your browser and navigate to `http://localhost:4200`.
 
-## Running unit tests
+## Technologies Used
+- **Angular:** Framework for building the application.
+- **NgRx:** State management library for managing application state.
+- **RxJS:** Library for reactive programming with observables.
+- **HTML/CSS/ Tailwind:** For structuring and styling the application.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Contribution
+Feel free to submit issues or pull requests if you'd like to contribute or provide feedback on the project.

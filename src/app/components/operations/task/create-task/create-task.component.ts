@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import {addTask} from '../../../../state/task/task.actions';
 import { Board, Column, Task } from '../../../../models';
 import { Observable } from 'rxjs';
 import { ColumnState } from '../../../../state/columns/colum.state';
 import { loadColumns } from '../../../../state/columns/column.action';
 import { BoardService } from '../../../../services/board/board.service';
+import { addTask } from '../../../../state/task/task.actions';
+import { DialogueService } from '../../../../services/dialogue/dialogue.service';
+import { loadBoards } from '../../../../state/boards/board.actions';
 
 
 @Component({
@@ -21,17 +23,24 @@ export class CreateTaskComponent implements OnInit{
   taskForm!: FormGroup;
   boards: Board[] = [];
   columns$!: Observable<Column[]>;
+  boardIndex = 0
 
   constructor(
     private fb: FormBuilder,
     private store: Store,
     private columnStore: Store<{ column: ColumnState }>,
     private boardService: BoardService,
+    private dialogueService:DialogueService,
+    private cdr: ChangeDetectorRef
+
   ) {
     this.columns$ = this.columnStore.select((state) => state.column.columns);
   }
 
   ngOnInit(): void {
+
+    this.boardIndex = this.boardService.activeBoardIndex;
+
     this.taskForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
@@ -39,7 +48,7 @@ export class CreateTaskComponent implements OnInit{
       subtasks: this.fb.array([]),
     });
 
-    this.store.dispatch(loadColumns({ boardIndex: 0 }));
+    this.store.dispatch(loadColumns({ boardIndex: this.boardIndex }));
   }
 
   get subtasks() {
@@ -69,14 +78,13 @@ export class CreateTaskComponent implements OnInit{
       })),
     };
 
-    // Assuming you know the boardIndex and columnIndex
     console.log("this.boardService.activeBoardIndex: ", this.boardService.activeBoardIndex)
-    const boardIndex = this.boardService.activeBoardIndex
-    const columnIndex = this.taskForm.value.status;
 
-    this.store.dispatch(addTask({ boardIndex, columnIndex, task }));
+    // const columnIndex = "Todo"
+    // console.log('columnIndex', columnIndex, task);
+    this.store.dispatch(addTask({boardIndex: this.boardIndex ,task}));
+    this.cdr.detectChanges();
+    this.dialogueService.closeModal();
     this.taskForm.reset();
   }
-
-
 }

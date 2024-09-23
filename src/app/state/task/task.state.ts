@@ -2,12 +2,12 @@ import { Board } from '../../models';
 
 export interface TaskState {
   boards: Board[];
-  error: any;
+  error: string | null;
   loading: boolean;
-};
+}
 
 export const initialState: TaskState = {
-  boards: [],
+  boards : [],
   error: null,
   loading: false,
 };

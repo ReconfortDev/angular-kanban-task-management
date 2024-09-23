@@ -4,20 +4,26 @@ import { BoardState, initialState } from './board.state';
 
 const _boardReducer = createReducer(
   initialState,
-  on(loadBoardsSuccess, (state, { boards }) => ({
-    ...state,
-    boards: boards,
-    error: null,
-  })),
+
+  // on(loadBoardsSuccess, (state, { boards }) => ({
+  //   ...state,
+  //   boards: boards,
+  //   error: null,
+  // })),
   on(loadBoardsFailure, (state, { error }) => ({
     ...state,
     error: error,
   })),
-  on(addBoard, (state, { board }) => ({
-    ...state,
-    boards: [...state.boards, board],
-  })),
+  on(addBoard, (state, { board }) => {
+    console.log(state);
+    return {
+      ...state,
+      boards: [...state.boards, board],
+    };
+  }),
+
   on(addColumn, (state, { boardIndex, column }) => {
+    console.log(state.boards)
     const boards = state.boards.map((board, index) => {
       if (index === boardIndex) {
         return {

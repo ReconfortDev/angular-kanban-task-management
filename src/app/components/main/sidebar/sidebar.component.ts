@@ -11,6 +11,7 @@ import { DialogueService } from '../../../services/dialogue/dialogue.service';
 import { loadColumns } from '../../../state/columns/column.action';
 import { DialogueComponent } from '../../dialogue/dialogue.component';
 import { BoardService } from '../../../services/board/board.service';
+import { TaskState } from '../../../state/task/task.state';
 
 @Component({
   selector: 'app-sidebar',
@@ -30,7 +31,7 @@ export class SidebarComponent implements OnInit {
   @Output() isSideBarActive = new EventEmitter<boolean>();
 
   constructor(
-    private store: Store<{ theme: ThemeState; board: BoardState }>,
+    private store: Store<{ theme: ThemeState; board: BoardState, task: TaskState }>,
     private dialogueService: DialogueService,
     private boardService: BoardService
   ) {}
@@ -41,7 +42,7 @@ export class SidebarComponent implements OnInit {
       document.documentElement.classList.toggle('dark', this.theme === 'dark');
     });
 
-    this.boards$ = this.store.select((state) => state.board.boards);
+    this.boards$ = this.store.select((state) => state.task.boards);
     this.boards$.subscribe((boards) => {
       if (boards.length > 0) {
         this.activeBoard = boards[this.activeBoardIndex] || null;

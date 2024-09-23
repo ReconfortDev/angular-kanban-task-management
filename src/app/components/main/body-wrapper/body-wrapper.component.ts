@@ -7,6 +7,8 @@ import { ColumnComponent } from './column/column.component';
 import { loadColumns } from '../../../state/columns/column.action';
 import { CommonModule } from '@angular/common';
 import { DialogueComponent } from '../../dialogue/dialogue.component';
+import { loadBoards } from '../../../state/boards/board.actions';
+import { TaskState } from '../../../state/task/task.state';
 
 @Component({
   selector: 'app-body-wrapper',
@@ -18,11 +20,16 @@ import { DialogueComponent } from '../../dialogue/dialogue.component';
 export class BodyWrapperComponent implements OnInit {
   columns$!: Observable<Column[]>;
 
-  constructor(private store: Store<{ column: ColumnState }>) {
-    this.columns$ = this.store.select((state) => state.column.columns);
+  constructor(private store: Store<{ column: ColumnState, task: TaskState }>) {
   }
 
   ngOnInit() {
-    this.store.dispatch(loadColumns({ boardIndex: 0 }));
+    this.columns$ = this.store.select((state) => state.task.boards[0].columns);
+
+    this.store.dispatch(loadBoards());
   }
 }
+
+
+
+

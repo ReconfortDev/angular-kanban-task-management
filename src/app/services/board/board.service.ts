@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Board, Column } from '../../models';
 import { jsonData } from '../../data/data';
@@ -7,23 +7,16 @@ import { jsonData } from '../../data/data';
   providedIn: 'root',
 })
 export class BoardService {
-  // activeBoardIndex!:number;
-  private  _activeBoardIndex = 0;
+  private  _activeBoardIndex = signal<number>(0);
   updatedBoards: Board[] = [...jsonData.boards];
 
   get activeBoardIndex(): number {
-    return this._activeBoardIndex;
+    return this._activeBoardIndex();
   }
-
-  // set activeBoardIndex(index: number) {
-  //   console.log('Setting activeBoardIndex to:', index);
-  //   this._activeBoardIndex = index;
-  // }
 
   set activeBoardIndex(index: number) {
     if (index >= 0 && index < this.updatedBoards.length) {
-      console.log('Setting activeBoardIndex to:', index);
-      this._activeBoardIndex = index;
+      this._activeBoardIndex.set(index);
     } else {
       console.warn('Index out of bounds:', index);
     }

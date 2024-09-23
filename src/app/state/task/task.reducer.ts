@@ -1,43 +1,51 @@
-import { createReducer, on, Action } from '@ngrx/store';
-import {addTask, updateTask, deleteTask } from './task.actions';
-import {TaskState, initialState} from './task.state';
-import { Board } from '../../models';
+import { createReducer, on } from '@ngrx/store';
+import { initialState } from './task.state';
+import { addTask } from './task.actions';
+import { loadBoardsSuccess } from '../boards/board.actions';
 
-const _taskReducer = createReducer(
+export const taskReducer = createReducer(
   initialState,
-  on(addTask, (state, { boardIndex, columnIndex, task }) => {
-    const updatedBoards :Board[] = [...state.boards];
-    updatedBoards[boardIndex].columns[columnIndex].tasks = [
-      ...updatedBoards[boardIndex].columns[columnIndex].tasks,
-      task,
-    ];
-    return {
-      ...state,
-      boards: updatedBoards,
-      loading: false,
-    };
-  }),
 
-  on(updateTask, (state, { boardIndex, columnIndex, taskIndex, task }) => {
-    const updatedBoards: Board[] = [...state.boards];
-    updatedBoards[boardIndex].columns[columnIndex].tasks[taskIndex] = task;
+  on(loadBoardsSuccess, (state, { boards }) => ({
+    ...state,
+    boards: boards,
+    error: null,
+  })),
+
+  on(addTask, (state, { boardIndex, task }) => {
+    const boards = [...state.boards];
+    // console.log("boards", boards);
+    const currentBoard = boards[boardIndex];
+    // console.log("currentBoard", currentBoard);
+
+    if (!currentBoard) {
+      console.error("Board not found at index:", boardIndex);
+      return state;
+    }
+
+    const updatedColumns = currentBoard.columns.map(column => {
+      if (column.name === task.status) {
+        // console.log("name", column.name)
+        // console.log("tatsy", task.status)
+        // console.log("before", column.tasks)
+
+        const updatedTasks = [...column.tasks, task];
+        // console.log("after", updatedTasks)
+        return {
+          ...column,
+          tasks: updatedTasks,
+        };
+      }
+      return column;
+    });
+
     return {
       ...state,
-      boards: updatedBoards,
-      loading: false,
-    };
-  }),
-  on(deleteTask, (state, { boardIndex, columnIndex, taskIndex }) => {
-    const updatedBoards: Board[] = [...state.boards];
-    updatedBoards[boardIndex].columns[columnIndex].tasks.splice(taskIndex, 1);
-    return {
-      ...state,
-      boards: updatedBoards,
-      loading: false,
+      boards: [
+        ...boards.slice(0, boardIndex),
+        { ...currentBoard, columns: updatedColumns },
+        ...boards.slice(boardIndex + 1),
+      ],
     };
   })
 );
-
-export function taskReducer(state: TaskState | undefined, action: Action): TaskState {
-  return _taskReducer(state, action);
-}
