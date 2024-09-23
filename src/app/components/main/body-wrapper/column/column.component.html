@@ -8,9 +8,14 @@
   <div
     class="w-full gap-4 flex flex-col py-2"
     *ngIf="column.tasks && column.tasks.length > 0; else noTasksTemplate"
+    cdkDropList
+    [cdkDropListData]="column.tasks"
+    (cdkDropListDropped)="drop($event)"
   >
-    <ng-container *ngFor="let task of column.tasks">
-      <app-task-card [task]="task"></app-task-card>
+    <ng-container *ngFor="let task of column.tasks; let i = index">
+      <div cdkDrag>
+        <app-task-card [task]="task" [index]="i"></app-task-card>
+      </div>
     </ng-container>
   </div>
 

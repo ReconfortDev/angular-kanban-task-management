@@ -1,19 +1,15 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { loadBoardsSuccess, loadBoardsFailure, addColumn, addBoard } from './board.actions';
+import { loadBoardsFailure, addColumn, addBoard, deleteBoard } from './board.actions';
 import { BoardState, initialState } from './board.state';
+import { TaskState } from '../task/task.state';
 
 const _boardReducer = createReducer(
   initialState,
-
-  // on(loadBoardsSuccess, (state, { boards }) => ({
-  //   ...state,
-  //   boards: boards,
-  //   error: null,
-  // })),
   on(loadBoardsFailure, (state, { error }) => ({
     ...state,
     error: error,
   })),
+
   on(addBoard, (state, { board }) => {
     console.log(state);
     return {
@@ -35,8 +31,9 @@ const _boardReducer = createReducer(
     });
     return { ...state, boards };
   }),
+
 );
 
-export function boardReducer(state: BoardState | undefined, action: Action): BoardState {
+export function boardReducer(state: BoardState | TaskState | undefined, action: Action): BoardState {
   return _boardReducer(state, action);
 }

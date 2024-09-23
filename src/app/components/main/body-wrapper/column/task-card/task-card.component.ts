@@ -11,10 +11,11 @@ import { DialogueService } from '../../../../../services/dialogue/dialogue.servi
 })
 export class TaskCardComponent {
   @Input() task!: Task;
+  @Input() index!: number;
 
   constructor(private dialogueService: DialogueService) {}
 
-  openTaskDetails() {
-    this.dialogueService.openDialogue('taskDetails');
+  openTaskDetails(task: Task) {
+    this.dialogueService.openDialogue('taskDetails', task);
   }
 }

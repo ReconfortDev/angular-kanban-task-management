@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { initialState } from './task.state';
-import { addTask } from './task.actions';
-import { loadBoardsSuccess } from '../boards/board.actions';
+import { addTask, moveTask } from './task.actions';
+import { addBoard, addColumn, deleteBoard, loadBoardsSuccess } from '../boards/board.actions';
 
 export const taskReducer = createReducer(
   initialState,
@@ -25,12 +25,8 @@ export const taskReducer = createReducer(
 
     const updatedColumns = currentBoard.columns.map(column => {
       if (column.name === task.status) {
-        // console.log("name", column.name)
-        // console.log("tatsy", task.status)
-        // console.log("before", column.tasks)
 
         const updatedTasks = [...column.tasks, task];
-        // console.log("after", updatedTasks)
         return {
           ...column,
           tasks: updatedTasks,
@@ -47,5 +43,65 @@ export const taskReducer = createReducer(
         ...boards.slice(boardIndex + 1),
       ],
     };
-  })
+  }),
+
+  on(moveTask, (state, { boardIndex, task, previousColumnName, newColumnName, previousIndex, newIndex }) => {
+    const updatedColumns = state.boards[boardIndex].columns.map(column => {
+      console.log("updatedColumns", updatedColumns)
+      // If it's the previous column, remove the task
+      if (column.name === previousColumnName) {
+        const tasks = [...column.tasks];
+        tasks.splice(previousIndex, 1);
+        return { ...column, tasks };
+      }
+
+      // If it's the new column, add the task at the new index
+      if (column.name === newColumnName) {
+        const tasks = [...column.tasks];
+        tasks.splice(newIndex, 0, task);
+        return { ...column, tasks };
+      }
+
+      // Return other columns unchanged
+      return column;
+    });
+
+    return {
+      ...state,
+      columns: updatedColumns
+    };
+  }),
+
+  on(addBoard, (state, { board }) => {
+    console.log(state);
+    return {
+      ...state,
+      boards: [...state.boards, board],
+    };
+  }),
+
+  on(addColumn, (state, { boardIndex, column }) => {
+    console.log(state.boards)
+    const boards = state.boards.map((board, index) => {
+      if (index === boardIndex) {
+        return {
+          ...board,
+          columns: [...board.columns, column]
+        };
+      }
+      return board;
+    });
+    return { ...state, boards };
+  }),
+
+  on(deleteBoard, (state, { boardIndex }) => {
+    console.log("state", state)
+    const updatedBoards = state.boards.filter((_, index) => index !== boardIndex);
+    console.log("updatedBoards", updatedBoards)
+
+    return {
+      ...state,
+      boards: updatedBoards,
+    };
+  }),
 );

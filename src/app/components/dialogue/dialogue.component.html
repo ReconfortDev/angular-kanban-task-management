@@ -15,8 +15,8 @@
       <app-create-board></app-create-board>
     </ng-container>
 
-    <ng-container *ngIf="dialogueMode === 'taskDetails'">
-      <app-task-details></app-task-details>
+    <ng-container *ngIf="dialogueMode === ('taskDetails')">
+      <app-task-details [task]="selectedTask"></app-task-details>
     </ng-container>
 
     <ng-container *ngIf="dialogueMode === 'createTask'">

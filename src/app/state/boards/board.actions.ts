@@ -29,3 +29,6 @@ export const addBoardSuccess = createAction(
   props<{ boards: Board[] }>(),
 );
 export const addBoardFailure = createAction('[Board] Add Board Failure', props<{ error: any }>());
+
+
+export const deleteBoard = createAction('[Board] Delete Board', props<{ boardIndex: number }>());

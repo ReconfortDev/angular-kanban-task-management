@@ -9,7 +9,6 @@ import { loadColumns } from '../../../../state/columns/column.action';
 import { BoardService } from '../../../../services/board/board.service';
 import { addTask } from '../../../../state/task/task.actions';
 import { DialogueService } from '../../../../services/dialogue/dialogue.service';
-import { loadBoards } from '../../../../state/boards/board.actions';
 
 
 @Component({
@@ -80,8 +79,6 @@ export class CreateTaskComponent implements OnInit{
 
     console.log("this.boardService.activeBoardIndex: ", this.boardService.activeBoardIndex)
 
-    // const columnIndex = "Todo"
-    // console.log('columnIndex', columnIndex, task);
     this.store.dispatch(addTask({boardIndex: this.boardIndex ,task}));
     this.cdr.detectChanges();
     this.dialogueService.closeModal();

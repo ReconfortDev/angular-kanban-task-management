@@ -4,7 +4,8 @@ import { DialogueService } from '../../services/dialogue/dialogue.service';
 import { CreateBoardComponent } from '../operations/board/create-board/create-board.component';
 import { TaskDetailsComponent } from '../operations/task/task-details/task-details.component';
 import { CreateTaskComponent } from "../operations/task/create-task/create-task.component";
-import { DeleteBoardComponent } from "../operations/board/delete-board/delete-board.component";
+import { DeleteBoardComponent } from '../operations/board/delete-board/delete-board.component';
+import { Task } from '../../models';
 
 @Component({
   selector: 'app-dialogue',
@@ -16,6 +17,8 @@ import { DeleteBoardComponent } from "../operations/board/delete-board/delete-bo
 export class DialogueComponent implements OnInit {
   modalStatus!: boolean;
   dialogueMode!: string;
+  selectedTask!: Task | null;
+
 
   constructor(public dialogueService: DialogueService) {}
 
@@ -26,6 +29,10 @@ export class DialogueComponent implements OnInit {
 
     this.dialogueService.dialogueMode$.subscribe((mode) => {
       this.dialogueMode = mode;
+    });
+
+    this.dialogueService.selectedTask$.subscribe((task) => {
+      this.selectedTask = task;
     });
   }
 
