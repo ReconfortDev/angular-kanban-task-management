@@ -12,6 +12,8 @@ import { loadColumns } from '../../../state/columns/column.action';
 import { DialogueComponent } from '../../dialogue/dialogue.component';
 import { BoardService } from '../../../services/board/board.service';
 import { TaskState } from '../../../state/task/task.state';
+import { isModalOpen } from '../../../state/ui/ui.selectors';
+import { closeModal } from '../../../state/ui/ui.actions';
 
 @Component({
   selector: 'app-sidebar',
@@ -27,6 +29,7 @@ export class SidebarComponent implements OnInit {
   totalBoards = 0;
   activeBoardIndex = 0;
   activeBoard: Board | null = null;
+  modalState$: Observable<boolean>;
 
   @Output() isSideBarActive = new EventEmitter<boolean>();
 
@@ -34,7 +37,9 @@ export class SidebarComponent implements OnInit {
     private store: Store<{ theme: ThemeState; board: BoardState, task: TaskState }>,
     private dialogueService: DialogueService,
     private boardService: BoardService
-  ) {}
+  ) {
+    this.modalState$ = this.store.select(isModalOpen);
+  }
 
   ngOnInit() {
     this.store.select('theme').subscribe((state) => {
@@ -62,6 +67,7 @@ export class SidebarComponent implements OnInit {
       this.boardService.activeBoardIndex = this.activeBoardIndex;
       this.activeBoard = board;
       this.store.dispatch(loadColumns({ boardIndex: this.activeBoardIndex }));
+      this.closeModal()
     });
   }
 
@@ -69,11 +75,16 @@ export class SidebarComponent implements OnInit {
     this.isSideBarHidden = !this.isSideBarHidden;
     this.isSideBarActive.emit(this.isSideBarHidden);
   }
+
   toggleTheme() {
     this.store.dispatch(toggleTheme());
   }
 
   openCreateBoard() {
     this.dialogueService.openDialogue('createBoard');
+  }
+
+  closeModal() {
+    this.store.dispatch(closeModal());
   }
 }

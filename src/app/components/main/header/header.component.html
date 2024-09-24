@@ -1,12 +1,16 @@
 <header
-  class="w-full bg-white dark:bg-darkGray text-black dark:text-lightGray p-3 border-b border-lightLines dark:border-darkLine flex justify-between items-center"
+  class="w-full bg-white dark:bg-darkGray text-black dark:text-lightGray p-3 border-b border-lightLines dark:border-darkLine flex justify-between items-center relative z-20"
 >
   <button
+    (click)="openModal()"
     class="w-7/12 flex justify-start items-center gap-4 p-2 duration-75 active:scale-90 md:active:scale-100"
   >
     <img src="assets/logo-mobile.svg" alt="Kanban" class="h-7 block md:hidden" />
     <h2 class="text-base md:text-2xl font-bold">Platform Launch</h2>
-    <span class="material-symbols-outlined -ml-4 mt-1 block md:hidden"> keyboard_arrow_down </span>
+    <span
+      [ngClass]="(modalState$ | async) ? 'rotate-180' : 'rotate-0'"
+      class="material-symbols-outlined -ml-4 mt-1 block md:hidden duration-300 "
+    > keyboard_arrow_down </span>
   </button>
   <div class="w-5/12 flex justify-end items-center gap-1">
     <button

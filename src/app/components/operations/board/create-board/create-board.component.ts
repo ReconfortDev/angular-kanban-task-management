@@ -7,6 +7,7 @@ import { Board } from '../../../../models';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { DialogueService } from '../../../../services/dialogue/dialogue.service';
+import { closeModal } from '../../../../state/ui/ui.actions';
 
 @Component({
   selector: 'app-create-board',
