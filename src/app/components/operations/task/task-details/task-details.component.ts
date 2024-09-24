@@ -45,11 +45,16 @@ export class TaskDetailsComponent implements OnInit {
     this.store.dispatch(loadColumns({ boardIndex: this.boardIndex }));
   }
 
+  countCompletedSubtasks(): number {
+    if (!this.task) return 0;
+    return this.task.subtasks.filter((subtask) => subtask.isCompleted).length;
+  }
+
   get subtasks() {
     return this.taskForm.get('subtasks') as FormArray;
   }
 
-  addSubtask() {
-    this.subtasks.push(this.fb.control(''));
-  }
+  // addSubtask() {
+  //   this.subtasks.push(this.fb.control(''));
+  // }
 }

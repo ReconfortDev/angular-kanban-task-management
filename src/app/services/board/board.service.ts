@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Board, Column } from '../../models';
 import { jsonData } from '../../data/data';
 
@@ -8,7 +8,12 @@ import { jsonData } from '../../data/data';
 })
 export class BoardService {
   private  _activeBoardIndex = signal<number>(0);
+  private _activeBoard$ = new BehaviorSubject<number>(this._activeBoardIndex());
   updatedBoards: Board[] = [...jsonData.boards];
+
+  get activeBoard$(): Observable<number> {
+    return this._activeBoard$.asObservable();
+  }
 
   get activeBoardIndex(): number {
     return this._activeBoardIndex();
@@ -17,6 +22,7 @@ export class BoardService {
   set activeBoardIndex(index: number) {
     if (index >= 0 && index < this.updatedBoards.length) {
       this._activeBoardIndex.set(index);
+      this._activeBoard$.next(index);
     } else {
       console.warn('Index out of bounds:', index);
     }

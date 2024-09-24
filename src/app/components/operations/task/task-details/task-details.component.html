@@ -16,14 +16,16 @@
   </p>
 
   <div class="w-full flex flex-col gap-4 mt-4">
-    <h2 class="font-medium text-mediumGray dark:text-lightGray">Subtasks (2 of 3)</h2>
+    <h2 class="font-medium text-mediumGray dark:text-lightGray">
+      Subtasks ({{ countCompletedSubtasks() }} of {{ task?.subtasks?.length }})
+    </h2>
 
     <div class="w-full flex flex-col gap-4" *ngFor="let subtask of task?.subtasks">
       <div class="w-full flex flex-col justify-start items-start gap-2 hover:shadow-lg">
         <div class="w-full flex items-center gap-4 p-4 bg-lightGray dark:bg-darkBg rounded-md">
           <input
             type="checkbox"
-            checked
+            [checked]="subtask.isCompleted"
             id="subtask1"
             name="subtask1"
             class="form-checkbox w-4 h-4"

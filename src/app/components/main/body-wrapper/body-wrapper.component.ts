@@ -4,32 +4,39 @@ import { Observable } from 'rxjs';
 import { Column } from '../../../models';
 import { ColumnState } from '../../../state/columns/colum.state';
 import { ColumnComponent } from './column/column.component';
-import { loadColumns } from '../../../state/columns/column.action';
 import { CommonModule } from '@angular/common';
 import { DialogueComponent } from '../../dialogue/dialogue.component';
-import { loadBoards } from '../../../state/boards/board.actions';
 import { TaskState } from '../../../state/task/task.state';
+import { BoardService } from '../../../services/board/board.service';
 
 @Component({
   selector: 'app-body-wrapper',
   standalone: true,
   imports: [CommonModule, ColumnComponent, DialogueComponent],
   templateUrl: './body-wrapper.component.html',
-  styleUrl: './body-wrapper.component.css',
+  styleUrls: ['./body-wrapper.component.css'],
 })
 export class BodyWrapperComponent implements OnInit {
   columns$!: Observable<Column[]>;
+  index = 0;
 
-  constructor(private store: Store<{ column: ColumnState, task: TaskState }>) {
-  }
+  constructor(
+    private store: Store<{ column: ColumnState, task: TaskState }>,
+    private boardService: BoardService
+  ) {}
 
   ngOnInit() {
-    this.columns$ = this.store.select((state) => state.task.boards[0].columns);
+    // Subscribe to active board changes from the BoardService
+    this.boardService.activeBoard$.subscribe(index => {
+      this.index = index;
+      this.getCurrentColumn(this.index);
+    });
+  }
 
-    this.store.dispatch(loadBoards());
+  getCurrentColumn(index: number) {
+    this.columns$ = this.store.select(state => state.task.boards[index]?.columns);
+    this.columns$.subscribe(columns => {
+      console.log("Columns:", columns);
+    });
   }
 }
-
-
-
-

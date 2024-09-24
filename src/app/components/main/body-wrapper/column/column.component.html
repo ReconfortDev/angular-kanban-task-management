@@ -2,7 +2,7 @@
   class="min-w-[420px] lg:min-w-[480px] flex flex-col justify-start items-start gap-5 duration-100"
 >
   <div class="flex items-center gap-2">
-    <div class="w-3 h-3 bg-purple rounded-full"></div>
+    <div class="w-3 h-3 rounded-full" [ngStyle]="{ 'background-color': getColorForColumn(column.name) }"></div>
     <p class="text-sm font-bold text-mediumGray">{{ column.name }}({{ column.tasks.length }})</p>
   </div>
   <div

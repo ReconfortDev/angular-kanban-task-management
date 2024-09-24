@@ -17,6 +17,10 @@ import { BoardService } from '../../../../services/board/board.service';
 })
 export class ColumnComponent {
   @Input() column!: Column;
+  private colors: string[] = [
+    '#FF5733', '#33FF57', '#3357FF', '#FF33A1', '#FF8333',
+    '#33FFF3', '#47a573', '#D433FF', '#A1FF33', '#FFB833'
+  ];
 
   constructor(private store: Store, private boardService: BoardService) {}
 
@@ -46,5 +50,14 @@ export class ColumnComponent {
 
       transferArrayItem(previousColumn, newColumn, event.previousIndex, event.currentIndex);
     }
+  }
+
+  getColorForColumn(name: string): string {
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+      hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const colorIndex = Math.abs(hash % this.colors.length);
+    return this.colors[colorIndex];
   }
 }
