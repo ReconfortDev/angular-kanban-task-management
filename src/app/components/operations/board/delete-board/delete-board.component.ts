@@ -12,7 +12,6 @@ export class DeleteBoardComponent {
   constructor(private dialogueService: DialogueService) {
     this.dialogueService.deleteConfirmed$.subscribe((confirmed) => {
       if (confirmed) {
-        // Logic to delete the board goes here
         console.log('Board deletion confirmed.');
       } else {
         console.log('Board deletion canceled.');
@@ -21,12 +20,12 @@ export class DeleteBoardComponent {
   }
 
   confirmDelete() {
-    this.dialogueService.confirmDeletion(); // Notify that deletion is confirmed
-    this.dialogueService.closeModal(); // Close the dialogue
+    this.dialogueService.confirmDeletion();
+    this.dialogueService.closeModal();
   }
 
   cancelDelete() {
-    this.dialogueService.cancelDeletion(); // Notify that deletion is canceled
-    this.dialogueService.closeModal(); // Close the dialogue
+    this.dialogueService.cancelDeletion();
+    this.dialogueService.closeModal();
   }
 }

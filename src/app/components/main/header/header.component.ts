@@ -17,7 +17,7 @@ import { closeModal, openModal } from '../../../state/ui/ui.actions';
 })
 export class HeaderComponent {
   isActionOpened = false;
-  boardIndex = 0;
+  boardIndex! :number;
   modalState$: Observable<boolean>;
 
   constructor(
@@ -42,7 +42,7 @@ export class HeaderComponent {
     this.dialogueService.openDialogue('deleteBoard');
     this.dialogueService.deleteConfirmed$.subscribe((confirmed: boolean) => {
       if (confirmed) {
-        this.store.dispatch(deleteBoard({ boardIndex: this.boardIndex }));
+        this.store.dispatch(deleteBoard({ boardIndex: this.boardService.activeBoardIndex }));
       }
     });
   }

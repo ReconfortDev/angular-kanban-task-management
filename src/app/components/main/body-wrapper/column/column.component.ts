@@ -24,31 +24,44 @@ export class ColumnComponent {
 
   constructor(private store: Store, private boardService: BoardService) {}
 
+  // drop(event: CdkDragDrop<Task[]>) {
+  //   const previousColumn = event.previousContainer.data;
+  //   const newColumn = event.container.data;
+  //
+  //   // If the task is moved within the same column
+  //   if (event.previousContainer === event.container) {
+  //     moveItemInArray(previousColumn, event.previousIndex, event.currentIndex);
+  //   } else {
+  //     // Dispatch action to move task between columns
+  //     const task = previousColumn[event.previousIndex];
+  //
+  //     const newColumnName = event.container.element.nativeElement.getAttribute('data-column-name') ?? '';
+  //
+  //     this.store.dispatch(
+  //       moveTask({
+  //         boardIndex: this.boardService.activeBoardIndex,
+  //         task,
+  //         previousColumnName: this.column.name,
+  //         newColumnName,
+  //         previousIndex: event.previousIndex,
+  //         newIndex: event.currentIndex
+  //       })
+  //     );
+  //
+  //     transferArrayItem(previousColumn, newColumn, event.previousIndex, event.currentIndex);
+  //   }
+  // }
+
   drop(event: CdkDragDrop<Task[]>) {
-    const previousColumn = event.previousContainer.data;
-    const newColumn = event.container.data;
-
-    // If the task is moved within the same column
     if (event.previousContainer === event.container) {
-      moveItemInArray(previousColumn, event.previousIndex, event.currentIndex);
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      // Dispatch action to move task between columns
-      const task = previousColumn[event.previousIndex];
-
-      const newColumnName = event.container.element.nativeElement.getAttribute('data-column-name') ?? '';
-
-      this.store.dispatch(
-        moveTask({
-          boardIndex: this.boardService.activeBoardIndex,
-          task,
-          previousColumnName: this.column.name,
-          newColumnName,
-          previousIndex: event.previousIndex,
-          newIndex: event.currentIndex
-        })
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
       );
-
-      transferArrayItem(previousColumn, newColumn, event.previousIndex, event.currentIndex);
     }
   }
 
